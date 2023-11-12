@@ -22,6 +22,15 @@ class Student:
                 f'{middle_rate(self.grades)}\nКурсы в процессе '
                 f'изучения: {", ".join(self.courses_in_progress)}\nЗавершенные курсы: Введение в программирование')
 
+    def __lt__(self, other):
+        return middle_rate(self.grades) < middle_rate(other.grades)
+
+    def __eq__(self, other):
+        return middle_rate(self.grades) == middle_rate(other.grades)
+
+    def __le__(self, other):
+        return middle_rate(self.grades) <= middle_rate(other.grades)
+
 
 class Mentor:
     def __init__(self, name, surname):
@@ -42,6 +51,15 @@ class Lecturer(Mentor):
         return (f'Имя: {self.name}\nФамилия: {self.surname}\nСредняя оценка за лекции:'
                 f'{middle_rate(self.lecture_estimates)}')
 
+    def __lt__(self, other):
+        return middle_rate(self.lecture_estimates) < middle_rate(other.lecture_estimates)
+
+    def __eq__(self, other):
+        return middle_rate(self.lecture_estimates) == middle_rate(other.lecture_estimates)
+
+    def __le__(self, other):
+        return middle_rate(self.lecture_estimates) <= middle_rate(other.lecture_estimates)
+
 
 class Reviewer(Mentor):
     def rate_hw(self, student, course, grade):
@@ -57,21 +75,6 @@ class Reviewer(Mentor):
         return f'Имя: {self.name}\nФамилия: {self.surname}'
 
 
-def compare_students(first, second, third):
-    if first >= second:
-        if first >= third:
-            return print(f'Лучший студент {student_1.surname} {student_1.name} c результатом: {first}')
-        else:
-            return print(f'Лучший студент {student_3.surname} {student_1.name} c результатом: {third}')
-    elif second >= third:
-        if second >= third:
-            return print(f'Лучший студент {student_2.surname} {student_1.name} c результатом: {second}')
-        else:
-            return print(f'Лучший студент {student_3.surname} {student_1.name} c результатом: {third}')
-    else:
-        return "ERROR"
-
-
 def middle_rate(dictionary):
     a = 0
     count = 0
@@ -80,13 +83,6 @@ def middle_rate(dictionary):
             a += int(value)
             count += 1
     return str(a / count)
-
-
-def compare_lecturers(first, second):
-    if first >= second:
-        return print(f'Лучший лектор {lecturer_1.surname} {lecturer_1.name} с результатом {first}')
-    else:
-        return print(f'Лучший лектор {lecturer_2.surname} {lecturer_2.name} с результатом {second}')
 
 
 # Наполняем данными:
@@ -178,6 +174,9 @@ print()
 print("Проверяющий:")
 print(reviewer_1)
 
-compare_students(middle_rate(student_1.grades), middle_rate(student_2.grades),
-                 middle_rate(student_3.grades))
-compare_lecturers(middle_rate(lecturer_1.lecture_estimates), middle_rate(lecturer_2.lecture_estimates))
+# compare_students(middle_rate(student_1.grades), middle_rate(student_2.grades),
+#                  middle_rate(student_3.grades))
+# compare_lecturers(middle_rate(lecturer_1.lecture_estimates), middle_rate(lecturer_2.lecture_estimates))
+print(student_1 > student_2)
+print(student_1 < student_1)
+print(student_1 == student_2)
